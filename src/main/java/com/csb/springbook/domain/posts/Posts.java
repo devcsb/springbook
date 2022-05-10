@@ -1,5 +1,6 @@
 package com.csb.springbook.domain.posts;
 
+import com.csb.springbook.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,10 +10,9 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor  //파라미터 없는 기본 생성자 생성. final 필드 포함 X
 @Entity //테이블과 링크될 클래스임을 명시.
-public class Posts {
+public class Posts extends BaseTimeEntity {  //
 
-    @Id //PK필드 명시
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(length = 500, nullable = false)
