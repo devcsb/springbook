@@ -1,6 +1,6 @@
 //이 프로젝트의 플러그인 의존성 관리를 위한 설정
 buildscript {
-    ext{
+    ext {
         springBootVersion = '2.1.7.RELEASE'
     }
     repositories {
@@ -33,9 +33,10 @@ repositories {
 
 //의존성 설정
 dependencies {
-    implementation'org.springframework.boot:spring-boot-starter-web'
-    implementation'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-mustache'
 
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
