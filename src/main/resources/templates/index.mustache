@@ -5,14 +5,14 @@
         <div class="row">
             <div class="col-md-6">
                 <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
-                {{#userName}}
-                    Logged in as: <span id="user">{{userName}}</span>
-                    <a href="/logout" class="btn btn-info active" role="button">Logout</a>
-                {{/userName}}
-                {{^userName}}
+                {{#loginUserName}} <!-- key값이 유효할 때, #key /key 사이 적힌 내용이 유효하다 if(key) -->
+                    Logged in as: <span id="user">{{loginUserName}}</span>
+                    <a href="/logout" class="btn btn-info active" role="button">Logout</a> <!--/logout : 스프링시큐리티에서 기본으로 제공하는 로그아웃 URL. 컨트롤러를 만들 필요가 없다.-->
+                {{/loginUserName}}
+                {{^loginUserName}}  <!--userName이 false거나 빈 List일 때  아래 코드가 유효함. if(!key) -->
                     <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
                     <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>
-                {{/userName}}
+                {{/loginUserName}}
             </div>
         </div>
         <br>

@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Entity //테이블과 링크될 클래스임을 명시.
 public class Posts extends BaseTimeEntity {  //
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(length = 500, nullable = false)
