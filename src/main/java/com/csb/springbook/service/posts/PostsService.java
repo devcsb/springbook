@@ -1,6 +1,5 @@
 package com.csb.springbook.service.posts;
 
-
 import com.csb.springbook.domain.posts.Posts;
 import com.csb.springbook.domain.posts.PostsRepository;
 import com.csb.springbook.web.dto.PostResponseDto;
@@ -32,12 +31,23 @@ public class PostsService {
      * */
     @Transactional
     public Long update(Long id, PostsSaveRequestDto requestDto) {
-        Posts posts = postsRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
+        Posts posts = postsRepository.findById(id) //반환값이 Optional
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));  //.orElseThrow 체이닝하여 익셉션 던짐.
 
         posts.update(requestDto.getTitle(), requestDto.getContent());
 
         return id;
+    }
+
+    /*
+    * 글 삭제
+    * */
+    @Transactional
+    public void delete(Long id) {
+        Posts posts = postsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
+
+        postsRepository.delete(posts);
     }
 
     /*
@@ -51,10 +61,14 @@ public class PostsService {
         return new PostResponseDto(entity);
     }
 
+    /*
+    * 글 목록 조회
+    * */
     @Transactional(readOnly = true)
     public List<PostsListResponseDto> findAllDesc() {
         return postsRepository.findAllDesc().stream()
                 .map(posts -> new PostsListResponseDto(posts)) //findAllDesc의 결과값 Entity를 PostsListResponseDto형태로 변환
                 .collect(Collectors.toList());  //Dto를 List로 반환
     }
+
 }

@@ -4,6 +4,13 @@
 * index.js만의 유효범위를 만들어 주기 위해 var main이란 객체를 만들어 해당 객체에서 모든 function을 선언하여 사용함다.
 * p.142 참고.
 * */
+/*
+* var a = {
+    b:function(){ // b 는 key이지만 변수의 역할을 하며 이러한 key를 속성(property)라고 부른다.
+    }
+};
+*
+* */
 
 var main = {
     init: function () {
@@ -46,6 +53,43 @@ var main = {
             });
         }
     },
+    update : function () {
+        var data = {
+            title: $('#title').val(),
+            content: $('#content').val()
+        };
+
+        var id = $('#id').val();
+
+        $.ajax({
+            type: 'PUT',
+            url: '/api/v1/posts/'+id,
+            dataType: 'json',
+            contentType:'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function() {
+            alert('글이 수정되었습니다.');
+            window.location.href = '/';
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    delete : function () {
+        var id = $('#id').val();
+
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/v1/posts/'+id,
+            dataType: 'json',
+            contentType:'application/json; charset=utf-8'
+        }).done(function() {
+            alert('글이 삭제되었습니다.');
+            window.location.href = '/';
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    }
 
 };
 
