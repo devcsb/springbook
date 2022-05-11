@@ -1,0 +1,15 @@
+#yml또는 properties파일의 이름을 application-xxx으로 만들면 profile이 생성된다.
+# 메인 설정파일에서 spring.profiles.include: xxx 으로 application-xxx.yml의 설정들을 가져올 수 있다.
+
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 683811736779-f5jt77lb564m47j4pithsje6eeqaelo8.apps.googleusercontent.com
+            client-secret: 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
+            scope: profile, email  #scope 기본값이 openid,profile,email인데,
+                                  #기본값을 그대로 두면, openid가 아닌 서비스(네이버,카카오 등)은 따로 OAuth2Service를 만들어줘야 하므로
+                                  #하나의 OAuth2Service 를 사용하기 위해 scope에서 openid를 제거하여 지정.
