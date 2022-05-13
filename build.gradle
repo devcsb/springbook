@@ -19,6 +19,7 @@ apply plugin: 'io.spring.dependency-management'
 
 group 'com.csb.book'
 version '1.0-SNAPSHOT'
+sourceCompatibility = '11'
 
 //Lombok 때문에 생긴 설정
 configurations {
