@@ -6,9 +6,8 @@ spring:
     include: oauth
 
   datasource:
-    hikari:
-      jdbc-url: jdbc:h2:mem:testdb;MODE=MYSQL
-      username: sa
+    url: jdbc:h2:mem:testdb;MODE=MYSQL  #real-db를 사용할 경우 override 된다.
+    username: sa                             #real-db를 사용할 경우 override 된다.
     password:
     driver-class-name: org.h2.Driver
 
@@ -19,7 +18,7 @@ spring:
       hibernate:
 #        show_sql: true #system.out으로 출력함. 개발환경에서만 사용할 것.
         format_sql: true
-        dialect: org.hibernate.dialect.MySQL57InnoDBDialect
+        dialect: org.hibernate.dialect.MySQL57Dialect
         dialect.storage_engine: innodb
   output:
     ansi:
