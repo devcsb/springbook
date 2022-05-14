@@ -1,0 +1,12 @@
+# 운영환경에서 사용할 설정파일
+spring:
+  session:
+    store-type: jdbc
+
+  profiles:
+    include: oauth,real-db
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL57InnoDBDialect

@@ -41,6 +41,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'  //spring-security-oauth2-client 와 spring-security-oauth2-jose를 기본으로 관리
     implementation 'org.springframework.session:spring-session-jdbc' //세션 저장소 설정 위한 의존성
     implementation 'org.springframework.security:spring-security-test' //테스트코드에서 스프링 시큐리티 사용 위한 의존성 (@WithMockUser 등)
+    implementation 'org.mariadb.jdbc:mariadb-java-client'  //rds에서 사용할 mariaDB 드라이버 설정
 
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
