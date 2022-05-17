@@ -1,4 +1,3 @@
-server.port: 8081
 spring:
   session:
     store-type: jdbc
@@ -11,3 +10,6 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL57Dialect
         dialect.storage_engine: innodb
+
+server:
+  port: 8081

@@ -56,4 +56,4 @@ deploy:  # 외부 서비스와 연동될 행위들을 선언한다.
 notifications:
   email:
     recipients:
-      -devcsb119@gmail.com
+      - devcsb119@gmail.com
