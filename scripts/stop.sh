@@ -4,9 +4,9 @@ ABSPATH=$(readlink -f $0)
 ABSDIR=$(dirname $ABSPATH) #현재 stop.sh가 속해있는 경로를 찾는다. profile.sh의 경로를 찾기 위해 사용.
 source ${ABSDIR}/profile.sh  #자바의 import 개념. profile의 함수를 사용하기 위함.
 
-IDEL_PORT=$(find_idle_port)
+IDLE_PORT=$(find_idle_port)
 
-echo "> $IDEL_PORT 에서 구동중인 애플리케이션 pid 확인"
+echo "> $IDLE_PORT 에서 구동중인 애플리케이션 pid 확인"
 IDLE_PID=$(lsof -ti tcp:${IDLE_PORT})
 
 if [ -z ${IDLE_PID} ]

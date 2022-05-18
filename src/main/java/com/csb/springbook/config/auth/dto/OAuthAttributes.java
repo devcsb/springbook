@@ -61,13 +61,13 @@ public class OAuthAttributes {
                 .build();
     }
 
-    // User Entity를 생성. OAuthAttributes에서 엔티티를 생성하는 시점은 처음 가입할 때이므로 가입시 기본권한을 Role.GUEST로 줌.
+    // User Entity를 생성. OAuthAttributes에서 엔티티를 생성하는 시점은 처음 가입할 때이므로 가입시 기본권한을 Role.USER로 줘서 글쓰기 권한 부여
     public User toEntity() {
         return User.builder()
                 .name(name)
                 .email(email)
                 .picture(picture)
-                .role(Role.GUEST)
+                .role(Role.USER)
                 .build();
     }
 
