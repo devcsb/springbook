@@ -59,7 +59,7 @@ jobs:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}  # 미리 생성해둔 IAM 인증키를 사용합니다.
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: springboot-test
-          environment_name: springboot-test
+          environment_name: Springboottest-env
           version_label: github-action-${{steps.current-time.outputs.formattedTime}}
           region: ap-northeast-2
           deployment_package: deploy/deploy.zip
