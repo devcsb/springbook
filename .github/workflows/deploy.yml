@@ -52,7 +52,6 @@ jobs:
       #그래서 Beanstalk 배포시에 매번 달라질 파일명을 찾아내기 보다는 하나로 통일해서 사용하도록 변경하였습니다.
       #application.jar 외에 3개의 파일/디렉토리 Procfile, .ebextensions, .platform 도 함께 zip에 포함시킵니다.
 
-
       - name: Deploy to EB # (2) Beanstalk 플러그인을 사용하는 코드.
         uses: einaregilsson/beanstalk-deploy@v20
         with:
