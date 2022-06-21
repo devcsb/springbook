@@ -60,7 +60,7 @@ jobs:
           application_name: springboot
           environment_name: Springboot-env
           version_label: github-action-${{steps.current-time.outputs.formattedTime}}
-          region: us-northeast-2
+          region: ap-northeast-2
           deployment_package: deploy/deploy.zip
 
 
