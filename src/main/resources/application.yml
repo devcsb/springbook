@@ -3,7 +3,7 @@ spring:
     store-type: jdbc  # 세션저장소로 DB를 사용하기 위함
 
   profiles:
-    include: oauth
+    include: local-real, oauth
 
   datasource:
     url: jdbc:h2:mem:testdb;MODE=MYSQL  #real-db를 사용할 경우 override 된다.
