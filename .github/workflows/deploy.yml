@@ -38,31 +38,31 @@ jobs:
         run: echo "CurrentTime=${{steps.current-time.outputs.formattedTime}}" # (2)
         shell: bash
 
-      - name: Generate deployment package # (1) Gradle Build를 통해 만들어진 jar 파일을 Beanstalk에 배포하기 위한 zip 파일로 만들어줄 스크립트 입니다.
-
-        run: |
-          mkdir -p deploy
-          cp build/libs/*.jar deploy/application.jar 
-          cp Procfile deploy/Procfile
-          cp -r .ebextensions deploy/.ebextensions
-          cp -r .platform deploy/.platform
-          cd deploy && zip -r deploy.zip .
-
-      #빌드가 끝나면 해당 배포 Jar의 파일명을 application.jar로 교체합니다.
-      #매 빌드때마다 jar의 파일명이 버전과 타임스탬프로 파일명이 교체됩니다.
-      #그래서 Beanstalk 배포시에 매번 달라질 파일명을 찾아내기 보다는 하나로 통일해서 사용하도록 변경하였습니다.
-      #application.jar 외에 3개의 파일/디렉토리 Procfile, .ebextensions, .platform 도 함께 zip에 포함시킵니다.
-
-
-      - name: Deploy to EB # (2) Beanstalk 플러그인을 사용하는 코드.
-        uses: einaregilsson/beanstalk-deploy@v14
-        with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}  # 미리 생성해둔 IAM 인증키를 사용합니다.
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: springboot-test
-          environment_name: Springboottest-env
-          version_label: github-action-${{steps.current-time.outputs.formattedTime}}
-          region: ap-northeast-2
-          deployment_package: deploy/deploy.zip
+#      - name: Generate deployment package # (1) Gradle Build를 통해 만들어진 jar 파일을 Beanstalk에 배포하기 위한 zip 파일로 만들어줄 스크립트 입니다.
+#
+#        run: |
+#          mkdir -p deploy
+#          cp build/libs/*.jar deploy/application.jar
+#          cp Procfile deploy/Procfile
+#          cp -r .ebextensions deploy/.ebextensions
+#          cp -r .platform deploy/.platform
+#          cd deploy && zip -r deploy.zip .
+#
+#      #빌드가 끝나면 해당 배포 Jar의 파일명을 application.jar로 교체합니다.
+#      #매 빌드때마다 jar의 파일명이 버전과 타임스탬프로 파일명이 교체됩니다.
+#      #그래서 Beanstalk 배포시에 매번 달라질 파일명을 찾아내기 보다는 하나로 통일해서 사용하도록 변경하였습니다.
+#      #application.jar 외에 3개의 파일/디렉토리 Procfile, .ebextensions, .platform 도 함께 zip에 포함시킵니다.
+#
+#
+#      - name: Deploy to EB # (2) Beanstalk 플러그인을 사용하는 코드.
+#        uses: einaregilsson/beanstalk-deploy@v14
+#        with:
+#          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}  # 미리 생성해둔 IAM 인증키를 사용합니다.
+#          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          application_name: springboot-test
+#          environment_name: Springboottest-env
+#          version_label: github-action-${{steps.current-time.outputs.formattedTime}}
+#          region: ap-northeast-2
+#          deployment_package: deploy/deploy.zip
 
 
