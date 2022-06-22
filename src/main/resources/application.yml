@@ -24,6 +24,7 @@ spring:
     ansi:
       enabled: always
 
+
 logging:
   level:
     org.hibernate.SQL: debug #logger를 통해서 sql을 로깅함.
