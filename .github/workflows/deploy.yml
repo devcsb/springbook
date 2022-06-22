@@ -53,7 +53,7 @@ jobs:
       #application.jar 외에 3개의 파일/디렉토리 Procfile, .ebextensions, .platform 도 함께 zip에 포함시킵니다.
 
       - name: Deploy to EB # (2) Beanstalk 플러그인을 사용하는 코드.
-        uses: einaregilsson/beanstalk-deploy@v18
+        uses: einaregilsson/beanstalk-deploy@v20
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}  # 미리 생성해둔 IAM 인증키를 사용합니다.
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
