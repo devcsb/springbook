@@ -1,0 +1,69 @@
+name: boot-test
+
+on:
+  push:
+    branches:
+      - master # (1) Github Action의 트리거 브랜치를 지정
+  workflow_dispatch: # (2) 브랜치 push 이벤트외에, 수동으로 실행하는 것도 가능하게 만드는 옵션
+
+env: # 새로 추가한 부분
+  S3_BUCKET_NAME: boot-test-deploy
+  PROJECT_NAME: boot-test
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # (3) 해당 Github Action 스크립트가 작동될 OS 환경을 지정합니다.
+
+    steps:
+      - name: Install git
+        run: sudo yum install git
+
+      - name: Checkout
+        uses: actions/checkout@v2 # (4) 프로젝트 코드를 checkout 합니다.
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1 # (5) Github Action이 실행될 OS에 Java를 설치합니다.
+        with:
+          java-version: 11
+
+      - name: TimeZone Change
+        run: |
+          sudo rm /etc/localtime
+          sudo ln -s /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew # (6) gradle wrapper를 실행할 수 있도록 실행 권한 (+x)을 줍니다.
+        shell: bash
+
+      - name: Build with Gradle
+        run: ./gradlew clean build # (7) gradle wrapper를 통해 해당 프로젝트를 build 합니다.
+        shell: bash
+
+      - name: Get current time
+        uses: 1466587594/get-current-time@v2
+        id: current-time
+        with:
+          format: YYYY-MM-DDTHH-mm-ss # (1)
+          utcOffset: "+09:00" # 해당 action의 기준이 UTC이기 때문에 한국시간이 KST를 맞추기 위해서는 +9시간이 필요하여 offset을 추가
+
+      - name: Show Current Time # get-current-time 에서 지정한 포맷대로 현재 시간을 노출
+        run: echo "CurrentTime=${{steps.current-time.outputs.formattedTime}}" # (2)
+        shell: bash
+
+      - name: Make zip file
+        run: zip -r ./$GITHUB_SHA.zip . # $GITHUB_SHA : Github Actions 에서 제공하는 여러 기본 환경변수 중 하나
+        shell: bash
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: boot-ebs
+          environment_name: Bootebs-env
+          region: ap-northeast-2
+
+      - name: Upload to S3
+        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$PROJECT_NAME/$GITHUB_SHA.zip
+
+
