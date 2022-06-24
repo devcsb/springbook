@@ -15,8 +15,8 @@ jobs:
     runs-on: ubuntu-latest # (3) 해당 Github Action 스크립트가 작동될 OS 환경을 지정합니다.
 
     steps:
-      - name: Install git
-        run: sudo yum install git
+#      - name: Install git
+#        run: sudo yum install git
 
       - name: Checkout
         uses: actions/checkout@v2 # (4) 프로젝트 코드를 checkout 합니다.
