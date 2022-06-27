@@ -77,6 +77,8 @@ jobs:
 
       - name: Code Deploy
         run: aws deploy create-deployment --application-name boot-test-deploy --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name dev --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$PROJECT_NAME/$GITHUB_SHA.zip
+
+
 # application-name : CodeDeploy 이름 지정
 # deployment-config-name : 배포 방식 지정
 # deployment-group-name : 배포 그룹 이름 명시
