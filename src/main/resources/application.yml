@@ -1,6 +1,8 @@
 spring:
   session:
     store-type: jdbc  # 세션저장소로 DB를 사용하기 위함
+    jdbc:
+      initialize-schema: always # spring will create required tables for us
 
   profiles:
     include: local-real, oauth
