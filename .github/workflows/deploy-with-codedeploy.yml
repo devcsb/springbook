@@ -57,10 +57,16 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
 
       - name: Upload to S3
         run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$PROJECT_NAME/$GITHUB_SHA.zip
+
+      - name: Code Deploy
+        run: aws deploy create-deployment --application-name boot-test-deploy --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name dev --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$PROJECT_NAME/$GITHUB_SHA.zip
+# application-name : CodeDeploy 이름 지정
+# deployment-config-name : 배포 방식 지정
+# deployment-group-name : 배포 그룹 이름 명시
+# s3-location : jar를 S3에서 가지고 오기 위해 차례로 bucket 이름, 파일 타입, 파일 경로를 입력한다.
